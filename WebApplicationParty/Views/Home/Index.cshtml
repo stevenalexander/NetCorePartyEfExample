@@ -1,0 +1,36 @@
+﻿@model WebApplicationParty.Models.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Parties</h1>
+
+<table>
+    <thead>
+        <tr>
+            <td>Name</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var party in Model.Parties)
+        {
+            <tr>
+                <td>@party.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form asp-controller="Home" asp-action="Index" method="post">
+    <h2>New Party</h2>
+    <div>
+        <label>Name:
+            <input type="text" asp-for="Name" />
+        </label>
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="button-group">
+       <button type="submit">Add</button>
+    </div>
+</form>
