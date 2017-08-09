@@ -7,6 +7,10 @@ namespace PartyData
     {
         public DbSet<Party> Parties { get; set; }
 
+        public DbSet<CustomService> CustomServices { get; set; }
+
+        public DbSet<PartyCustomServiceRegistration> PartyCustomServiceRegistrations { get; set; }
+
         public PartyDbContext(DbContextOptions<PartyDbContext> options) : base(options)
         {
         }
@@ -34,6 +38,16 @@ namespace PartyData
             modelBuilder.Entity<Person>().Property(x => x.Surname);
             modelBuilder.Entity<Person>().Property(x => x.DateOfBirth);
             modelBuilder.Entity<Person>().Property(x => x.EmailAddress);
+
+            modelBuilder.Entity<CustomService>().ToTable("CustomService");
+            modelBuilder.Entity<CustomService>().Property(x => x.CustomServiceId);
+            modelBuilder.Entity<CustomService>().Property(x => x.Name);
+
+            modelBuilder.Entity<PartyCustomServiceRegistration>().ToTable("PartyCustomServiceRegistration");
+            modelBuilder.Entity<PartyCustomServiceRegistration>().Property(x => x.PartyCustomServiceRegistrationId);
+            modelBuilder.Entity<PartyCustomServiceRegistration>().Property(x => x.PartyId);
+            modelBuilder.Entity<PartyCustomServiceRegistration>().Property(x => x.CustomServiceId);
+            modelBuilder.Entity<PartyCustomServiceRegistration>().Property(x => x.RegistrationStatus).HasDefaultValue(true);
         }
     }
 }

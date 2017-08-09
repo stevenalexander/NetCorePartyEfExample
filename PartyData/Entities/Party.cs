@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PartyData.Entities
@@ -17,7 +18,9 @@ namespace PartyData.Entities
         [Required]
         public DateTime DateLastModified { get; set; }
 
-        public Party()
+        public List<PartyCustomServiceRegistration> CustomServiceRegistrations { get; set; }
+
+        public Party() // required empty constructor
         {
         }
 

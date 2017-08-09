@@ -10,6 +10,8 @@
     <thead>
         <tr>
             <td>Name</td>
+            <td>Services</td>
+            <td>Add to service</td>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +19,15 @@
         {
             <tr>
                 <td>@party.Name</td>
+                <td>@string.Join(",", party.CustomServiceRegistrations.Select(r => Model.Services.First(s => s.CustomServiceId == r.CustomServiceId).Name))</td>
+                <td>
+                    <form asp-controller="Home" asp-action="AddToCustomService" method="post">
+                        @Html.Hidden("PartyId", party.PartyId)
+                        <select asp-for="CustomServiceId" asp-items="@(new SelectList(Model.Services,"CustomServiceId","Name"))">
+                        </select>
+                        <input type="submit" />
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
