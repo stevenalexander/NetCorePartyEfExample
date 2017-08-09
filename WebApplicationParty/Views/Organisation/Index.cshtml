@@ -1,0 +1,27 @@
+﻿@model WebApplicationParty.Models.OrganisationViewModel
+
+@{
+    ViewData["Title"] = "Add an Organisation";
+}
+
+<h1>Person</h1>
+
+<form asp-controller="Organisation" asp-action="Index" method="post">
+    <h2>New Organisation</h2>
+    <div>
+        <label>Organisation name:
+            <input type="text" asp-for="OrganisationName" />
+        </label>
+        <span class="text-danger" asp-validation-for="OrganisationName"></span>
+    </div>
+    <div>
+        <label>
+            Trading name:
+            <input type="text" asp-for="TradingName" />
+        </label>
+        <span class="text-danger" asp-validation-for="TradingName"></span>
+    </div>
+    <div class="button-group">
+       <button type="submit">Add</button>
+    </div>
+</form>

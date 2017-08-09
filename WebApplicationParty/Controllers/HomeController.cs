@@ -27,28 +27,6 @@ namespace WebApplicationParty.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Index(HomeViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                model.Parties = await _partyDbContext.Parties.ToListAsync();
-
-                return View(model);
-            }
-
-            Party party = new Party
-            {
-                Name = model.Name,
-                DateCreated = DateTime.UtcNow,
-                DateLastModified = DateTime.UtcNow
-            };
-            _partyDbContext.Add(party);
-            _partyDbContext.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
         public IActionResult Error()
         {
             return View();

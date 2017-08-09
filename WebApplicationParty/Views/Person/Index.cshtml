@@ -1,0 +1,41 @@
+﻿@model WebApplicationParty.Models.PersonViewModel
+
+@{
+    ViewData["Title"] = "Add a Person";
+}
+
+<h1>Person</h1>
+
+<form asp-controller="Person" asp-action="Index" method="post">
+    <h2>New Person</h2>
+    <div>
+        <label>First name:
+            <input type="text" asp-for="FirstName" />
+        </label>
+        <span class="text-danger" asp-validation-for="FirstName"></span>
+    </div>
+    <div>
+        <label>
+            Surname:
+            <input type="text" asp-for="Surname" />
+        </label>
+        <span class="text-danger" asp-validation-for="Surname"></span>
+    </div>
+    <div>
+        <label>
+            Date of birth:
+            <input type="text" asp-for="DateOfBirth" />
+        </label>
+        <span class="text-danger" asp-validation-for="DateOfBirth"></span>
+    </div>
+    <div>
+        <label>
+            Email address:
+            <input type="text" asp-for="EmailAddress" />
+        </label>
+        <span class="text-danger" asp-validation-for="EmailAddress"></span>
+    </div>
+    <div class="button-group">
+       <button type="submit">Add</button>
+    </div>
+</form>

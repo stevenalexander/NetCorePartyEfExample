@@ -16,5 +16,16 @@ namespace PartyData.Entities
 
         [Required]
         public DateTime DateLastModified { get; set; }
+
+        public Party()
+        {
+        }
+
+        public Party(string name)
+        {
+            Name = name;
+            DateCreated = DateTime.UtcNow;
+            DateLastModified = DateTime.UtcNow;
+        }
     }
 }
