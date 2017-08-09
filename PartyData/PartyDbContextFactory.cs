@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace PartyData
 {
+    // Required to allow migrations in separate Class Library
     public class PartyDbContextFactory : IDbContextFactory<PartyDbContext>
     {
         public PartyDbContext Create(DbContextFactoryOptions options)
