@@ -5,3 +5,4 @@ dist: trusty
 script:
  - dotnet restore
  - dotnet build
+ - dotnet test WebApplicationParty.UnitTests/WebApplicationParty.UnitTests.csproj
