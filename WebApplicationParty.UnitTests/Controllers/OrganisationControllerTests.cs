@@ -25,10 +25,22 @@ namespace WebApplicationParty.UnitTests.Controllers
         }
 
         [Test]
-        public void Index_ReturnsView()
+        public async Task Index_ReturnsView()
         {
-            var result = _controller.Index();
+            var result = await _controller.Index();
 
+            Assert.IsTrue(result is ViewResult);
+        }
+
+        [Test]
+        public async Task Index_WithIdGetsDataAndReturnsView()
+        {
+            var party = new Party { Organisation = new Organisation() };
+            _partyRespository.GetParty(1).Returns(party);
+
+            var result = await _controller.Index(1);
+
+            await _partyRespository.Received().GetParty(1);
             Assert.IsTrue(result is ViewResult);
         }
 

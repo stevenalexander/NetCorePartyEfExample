@@ -18,7 +18,9 @@
         @foreach (var party in Model.Parties)
         {
             <tr>
-                <td>@party.Name</td>
+                <td>
+                    @Html.ActionLink(@party.Name, "Index", (party.Person != null) ? "Person" : "Organisation", new { id = party.PartyId })
+                </td>
                 <td>
                     @foreach (var service in party.ActiveRegistrations.Select(r => Model.Services.First(s => s.CustomServiceId == r.CustomServiceId)))
                     {

@@ -25,5 +25,10 @@ namespace PartyData.Entities
         public string EmailAddress { get; set; }
 
         public Party Party { get; set; }
+
+        public string GetPartyName()
+        {
+            return string.Format("{0} {1}", FirstName, Surname);
+        }
     }
 }

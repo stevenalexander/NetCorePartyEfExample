@@ -3,10 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using PartyData.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace PartyData.Repositories
 {
+    // Should be split into multiple respositories, e.g. Person, Organisation
     public class PartyRespository : IPartyRespository
     {
         private PartyDbContext _partyDbContext;
@@ -18,7 +18,12 @@ namespace PartyData.Repositories
 
         public async Task<List<Party>> GetPartiesWithRegistrations()
         {
-            return await _partyDbContext.Parties.Include(p => p.CustomServiceRegistrations).ToListAsync();
+            // multiple includes returning all results bad for large volumes of data
+            return await _partyDbContext.Parties
+                .Include(p => p.CustomServiceRegistrations)
+                .Include(p => p.Organisation)
+                .Include(p => p.Person)
+                .ToListAsync();
         }
 
         public async Task<List<CustomService>> GetCustomServices()
@@ -26,15 +31,56 @@ namespace PartyData.Repositories
             return await _partyDbContext.CustomServices.ToListAsync();
         }
 
+        // Should be split into GetPerson and GetOrganisation
+        public async Task<Party> GetParty(int partyId)
+        {
+            return await _partyDbContext.Parties
+                .Include(p => p.Organisation)
+                .Include(p => p.Person)
+                .FirstOrDefaultAsync(p => p.PartyId == partyId);
+        }
+
         public async Task AddOrganisation(Organisation organisation)
         {
+            organisation.Party = new Party(organisation.GetPartyName());
             _partyDbContext.Add(organisation);
+            await _partyDbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateOrganisation(Organisation organisation)
+        {
+            var party = await GetParty(organisation.PartyId);
+
+            // This should be done as a mapper
+            party.Organisation.OrganisationName = organisation.OrganisationName;
+            party.Organisation.TradingName = organisation.TradingName;
+            party.Name = organisation.GetPartyName();
+
+            _partyDbContext.Update(party);
+            _partyDbContext.Update(party.Organisation);
             await _partyDbContext.SaveChangesAsync();
         }
 
         public async Task AddPerson(Person person)
         {
+            person.Party = new Party(person.GetPartyName());
             _partyDbContext.Add(person);
+            await _partyDbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdatePerson(Person person)
+        {
+            var party = await GetParty(person.PartyId);
+
+            // This should be done as a mapper
+            party.Person.FirstName = person.FirstName;
+            party.Person.Surname = person.Surname;
+            party.Person.DateOfBirth = person.DateOfBirth;
+            party.Person.EmailAddress = person.EmailAddress;
+            party.Name = person.GetPartyName();
+
+            _partyDbContext.Update(party);
+            _partyDbContext.Update(party.Person);
             await _partyDbContext.SaveChangesAsync();
         }
 

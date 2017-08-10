@@ -1,41 +1,41 @@
 ﻿@model WebApplicationParty.Models.PersonViewModel
 
 @{
-    ViewData["Title"] = "Add a Person";
+    ViewData["Title"] = "Person";
 }
 
 <h1>Person</h1>
 
 <form asp-controller="Person" asp-action="Index" method="post">
-    <h2>New Person</h2>
-    <div>
+    @Html.Hidden("PartyId", Model != null ? Model.PartyId : 0)
+    <div class="form-group">
         <label>First name:
-            <input type="text" asp-for="FirstName" />
+            <input type="text" class="form-control" asp-for="FirstName" />
         </label>
         <span class="text-danger" asp-validation-for="FirstName"></span>
     </div>
-    <div>
+    <div class="form-group">
         <label>
             Surname:
-            <input type="text" asp-for="Surname" />
+            <input type="text" class="form-control" asp-for="Surname" />
         </label>
         <span class="text-danger" asp-validation-for="Surname"></span>
     </div>
-    <div>
+    <div class="form-group">
         <label>
             Date of birth:
-            <input type="text" asp-for="DateOfBirth" />
+            <input type="text" class="form-control" asp-for="DateOfBirth" />
         </label>
         <span class="text-danger" asp-validation-for="DateOfBirth"></span>
     </div>
-    <div>
+    <div class="form-group">
         <label>
             Email address:
-            <input type="text" asp-for="EmailAddress" />
+            <input type="text" class="form-control" asp-for="EmailAddress" />
         </label>
         <span class="text-danger" asp-validation-for="EmailAddress"></span>
     </div>
     <div class="button-group">
-       <button type="submit">Add</button>
+       <button type="submit" class="btn btn-default">Submit</button>
     </div>
 </form>

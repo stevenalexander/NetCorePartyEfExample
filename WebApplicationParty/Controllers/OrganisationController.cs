@@ -16,8 +16,24 @@ namespace WebApplicationParty.Controllers
             _partyRespository = partyRespository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int id = 0)
         {
+            if (id > 0)
+            {
+                var party = await _partyRespository.GetParty(id);
+                var organisation = party.Organisation;
+
+                // This should be mapped
+                var model = new OrganisationViewModel
+                {
+                    PartyId = organisation.PartyId,
+                    OrganisationName = organisation.OrganisationName,
+                    TradingName = organisation.TradingName
+                };
+
+                return View(model);
+            }
+
             return View();
         }
 
@@ -31,12 +47,19 @@ namespace WebApplicationParty.Controllers
 
             var organisation = new Organisation
             {
+                PartyId = model.PartyId,
                 OrganisationName = model.OrganisationName,
-                TradingName = model.TradingName,
-                Party = new Party(model.OrganisationName)
+                TradingName = model.TradingName
             };
 
-            await _partyRespository.AddOrganisation(organisation);
+            if (model.PartyId > 0)
+            {
+                await _partyRespository.UpdateOrganisation(organisation);
+            }
+            else
+            {
+                await _partyRespository.AddOrganisation(organisation);
+            }
 
             return RedirectToAction("Index", "Home");
         }

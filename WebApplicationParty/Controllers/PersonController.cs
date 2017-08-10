@@ -16,8 +16,26 @@ namespace WebApplicationParty.Controllers
             _partyRespository = partyRespository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int id = 0)
         {
+            if (id > 0)
+            {
+                var party = await _partyRespository.GetParty(id);
+                var person = party.Person;
+
+                // This should be mapped
+                var model = new PersonViewModel
+                {
+                    PartyId = person.PartyId,
+                    FirstName = person.FirstName,
+                    Surname = person.Surname,
+                    DateOfBirth = person.DateOfBirth,
+                    EmailAddress = person.EmailAddress
+                };
+
+                return View(model);
+            }
+
             return View();
         }
 
@@ -31,14 +49,21 @@ namespace WebApplicationParty.Controllers
 
             var person = new Person
             {
+                PartyId = model.PartyId,
                 FirstName = model.FirstName,
                 Surname = model.Surname,
                 DateOfBirth = model.DateOfBirth,
-                EmailAddress = model.EmailAddress,
-                Party = new Party(string.Format("{0} {1}", model.FirstName, model.Surname))
+                EmailAddress = model.EmailAddress
             };
 
-            await _partyRespository.AddPerson(person);
+            if (model.PartyId > 0)
+            {
+                await _partyRespository.UpdatePerson(person);
+            }
+            else
+            {
+                await _partyRespository.AddPerson(person);
+            }
 
             return RedirectToAction("Index", "Home");
         }

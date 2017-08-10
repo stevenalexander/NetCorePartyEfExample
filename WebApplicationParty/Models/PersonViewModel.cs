@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApplicationParty.Models
 {
-    public class PersonViewModel : HomeViewModel
+    public class PersonViewModel
     {
+        public int PartyId { get; set; }
+
         [Required]
         public string FirstName { get; set; }
 

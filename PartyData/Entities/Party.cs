@@ -22,6 +22,10 @@ namespace PartyData.Entities
 
         public List<PartyCustomServiceRegistration> CustomServiceRegistrations { get; set; }
 
+        public Person Person { get; set; }
+
+        public Organisation Organisation { get; set; }
+
         [NotMapped]
         public List<PartyCustomServiceRegistration> ActiveRegistrations
         {

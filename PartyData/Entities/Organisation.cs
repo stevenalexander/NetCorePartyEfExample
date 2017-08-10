@@ -17,5 +17,10 @@ namespace PartyData.Entities
         public string TradingName { get; set; }
 
         public Party Party { get; set; }
+
+        public string GetPartyName()
+        {
+            return OrganisationName;
+        }
     }
 }

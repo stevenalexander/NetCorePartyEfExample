@@ -1,27 +1,27 @@
 ﻿@model WebApplicationParty.Models.OrganisationViewModel
 
 @{
-    ViewData["Title"] = "Add an Organisation";
+    ViewData["Title"] = "Organisation";
 }
 
-<h1>Person</h1>
+<h1>Organisation</h1>
 
 <form asp-controller="Organisation" asp-action="Index" method="post">
-    <h2>New Organisation</h2>
-    <div>
+    @Html.Hidden("PartyId", Model != null ? Model.PartyId : 0)
+    <div class="form-group">
         <label>Organisation name:
-            <input type="text" asp-for="OrganisationName" />
+            <input type="text" class="form-control" asp-for="OrganisationName" />
         </label>
         <span class="text-danger" asp-validation-for="OrganisationName"></span>
     </div>
-    <div>
+    <div class="form-group">
         <label>
             Trading name:
-            <input type="text" asp-for="TradingName" />
+            <input type="text" class="form-control" asp-for="TradingName" />
         </label>
         <span class="text-danger" asp-validation-for="TradingName"></span>
     </div>
     <div class="button-group">
-       <button type="submit">Add</button>
+       <button type="submit" class="btn btn-default">Submit</button>
     </div>
 </form>

@@ -10,9 +10,15 @@ namespace PartyData.Repositories
 
         Task<List<CustomService>> GetCustomServices();
 
+        Task<Party> GetParty(int partyId);
+
         Task AddOrganisation(Organisation organisation);
 
+        Task UpdateOrganisation(Organisation organisation);
+
         Task AddPerson(Person person);
+
+        Task UpdatePerson(Person person);
 
         Task RegisterPartyWithService(int partyId, int customServiceId);
 
