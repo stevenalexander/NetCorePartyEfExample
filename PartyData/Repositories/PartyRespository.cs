@@ -42,9 +42,9 @@ namespace PartyData.Repositories
         {
             if (customServiceId > 0 && partyId > 0)
             {
-                var existingRegistrations = await _partyDbContext.PartyCustomServiceRegistrations.Where(r => r.PartyId == partyId).ToListAsync();
+                var existingRegistration = await _partyDbContext.PartyCustomServiceRegistrations.FirstOrDefaultAsync(r => r.PartyId == partyId && r.CustomServiceId == customServiceId);
 
-                if (!existingRegistrations.Exists(r => r.CustomServiceId == customServiceId))
+                if (existingRegistration == null)
                 {
                     var newRegistration = new PartyCustomServiceRegistration
                     {
@@ -54,6 +54,30 @@ namespace PartyData.Repositories
                     };
 
                     _partyDbContext.Add(newRegistration);
+                    await _partyDbContext.SaveChangesAsync();
+                }
+                else if (!existingRegistration.RegistrationStatus)
+                {
+                    existingRegistration.RegistrationStatus = true;
+                    _partyDbContext.Update(existingRegistration);
+                    await _partyDbContext.SaveChangesAsync();
+                }
+            }
+        }
+
+        public async Task RemovePartyFromCustomService(int partyId, int customServiceId)
+        {
+            if (customServiceId > 0 && partyId > 0)
+            {
+                var registration = _partyDbContext.PartyCustomServiceRegistrations.FirstOrDefault(r =>
+                    r.PartyId == partyId &&
+                    r.CustomServiceId == customServiceId &&
+                    r.RegistrationStatus);
+
+                if (registration != null)
+                {
+                    registration.RegistrationStatus = false;
+                    _partyDbContext.Update(registration);
                     await _partyDbContext.SaveChangesAsync();
                 }
             }

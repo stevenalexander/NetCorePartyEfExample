@@ -53,6 +53,18 @@ namespace WebApplicationParty.UnitTests.Controllers
         }
 
         [Test]
+        public async Task RemoveFromCustomService_RemovesPartyRegistrationAndReturnsRedirect()
+        {
+            var partyId = 4321;
+            var customServiceId = 1234;
+
+            var result = await _controller.RemoveFromCustomService(new HomeViewModel { PartyId = partyId, CustomServiceId = customServiceId });
+
+            await _partyRespository.Received().RemovePartyFromCustomService(partyId, customServiceId);
+            Assert.IsTrue(result is RedirectToActionResult);
+        }
+
+        [Test]
         public void Error_ReturnsView()
         {
             var result = _controller.Error();

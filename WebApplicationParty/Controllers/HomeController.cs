@@ -36,6 +36,14 @@ namespace WebApplicationParty.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromCustomService(HomeViewModel model)
+        {
+            await _partyRespository.RemovePartyFromCustomService(model.PartyId, model.CustomServiceId);
+
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Error()
         {
             return View();

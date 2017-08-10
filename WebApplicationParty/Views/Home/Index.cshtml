@@ -20,9 +20,14 @@
             <tr>
                 <td>@party.Name</td>
                 <td>
-                    @foreach (var serviceName in party.CustomServiceRegistrations.Select(r => Model.Services.First(s => s.CustomServiceId == r.CustomServiceId).Name))
+                    @foreach (var service in party.ActiveRegistrations.Select(r => Model.Services.First(s => s.CustomServiceId == r.CustomServiceId)))
                     {
-                        <div>@serviceName</div>
+                    <form asp-controller="Home" asp-action="RemoveFromCustomService" method="post">
+                        @Html.Hidden("PartyId", party.PartyId)
+                        @Html.Hidden("CustomServiceId", service.CustomServiceId)
+                        <span>@service.Name</span>
+                        <input type="submit" class="btn btn-link" value="remove" />
+                    </form>
                     }
                 </td>
                 <td>

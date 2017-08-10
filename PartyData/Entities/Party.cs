@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace PartyData.Entities
 {
@@ -19,6 +21,15 @@ namespace PartyData.Entities
         public DateTime DateLastModified { get; set; }
 
         public List<PartyCustomServiceRegistration> CustomServiceRegistrations { get; set; }
+
+        [NotMapped]
+        public List<PartyCustomServiceRegistration> ActiveRegistrations
+        {
+            get
+            {
+                return CustomServiceRegistrations.Where(r => r.RegistrationStatus).ToList();
+            }
+        }
 
         public Party() // required empty constructor
         {

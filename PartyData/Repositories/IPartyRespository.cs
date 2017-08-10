@@ -15,5 +15,7 @@ namespace PartyData.Repositories
         Task AddPerson(Person person);
 
         Task RegisterPartyWithService(int partyId, int customServiceId);
+
+        Task RemovePartyFromCustomService(int partyId, int customServiceId);
     }
 }
