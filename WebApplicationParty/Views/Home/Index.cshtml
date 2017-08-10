@@ -6,7 +6,7 @@
 
 <h1>Parties</h1>
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <td>Name</td>
@@ -19,13 +19,18 @@
         {
             <tr>
                 <td>@party.Name</td>
-                <td>@string.Join(",", party.CustomServiceRegistrations.Select(r => Model.Services.First(s => s.CustomServiceId == r.CustomServiceId).Name))</td>
+                <td>
+                    @foreach (var serviceName in party.CustomServiceRegistrations.Select(r => Model.Services.First(s => s.CustomServiceId == r.CustomServiceId).Name))
+                    {
+                        <div>@serviceName</div>
+                    }
+                </td>
                 <td>
                     <form asp-controller="Home" asp-action="AddToCustomService" method="post">
                         @Html.Hidden("PartyId", party.PartyId)
                         <select asp-for="CustomServiceId" asp-items="@(new SelectList(Model.Services,"CustomServiceId","Name"))">
                         </select>
-                        <input type="submit" />
+                        <input type="submit" class="btn btn-link" value="add" />
                     </form>
                 </td>
             </tr>
