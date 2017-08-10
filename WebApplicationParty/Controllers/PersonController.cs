@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PartyData;
 using PartyData.Entities;
+using PartyData.Repositories;
 using System.Threading.Tasks;
 using WebApplicationParty.Models;
 
@@ -8,11 +9,11 @@ namespace WebApplicationParty.Controllers
 {
     public class PersonController : Controller
     {
-        private PartyDbContext _partyDbContext;
+        private IPartyRespository _partyRespository;
 
-        public PersonController(PartyDbContext partyDbContext)
+        public PersonController(IPartyRespository partyRespository)
         {
-            _partyDbContext = partyDbContext;
+            _partyRespository = partyRespository;
         }
 
         public IActionResult Index()
@@ -37,8 +38,7 @@ namespace WebApplicationParty.Controllers
                 Party = new Party(string.Format("{0} {1}", model.FirstName, model.Surname))
             };
 
-            _partyDbContext.Add(person);
-            await _partyDbContext.SaveChangesAsync();
+            await _partyRespository.AddPerson(person);
 
             return RedirectToAction("Index", "Home");
         }

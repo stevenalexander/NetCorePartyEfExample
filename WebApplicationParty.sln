@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationParty", "WebApplicationParty\WebApplicationParty.csproj", "{34B6E2C2-CD72-44B2-A003-6FB63FF4AFE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplicationParty", "WebApplicationParty\WebApplicationParty.csproj", "{34B6E2C2-CD72-44B2-A003-6FB63FF4AFE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyData", "PartyData\PartyData.csproj", "{9830F1F5-ED75-4345-9C39-3D3064233CAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyData", "PartyData\PartyData.csproj", "{9830F1F5-ED75-4345-9C39-3D3064233CAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DE625E47-DB95-4710-A11A-F902B3425E78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{28D3B757-608D-4583-A0BE-E94D30DDF4D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationParty.UnitTests", "WebApplicationParty.UnitTests\WebApplicationParty.UnitTests.csproj", "{681D0897-4029-4D04-8726-79AEC4313727}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +27,17 @@ Global
 		{9830F1F5-ED75-4345-9C39-3D3064233CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9830F1F5-ED75-4345-9C39-3D3064233CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9830F1F5-ED75-4345-9C39-3D3064233CAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{681D0897-4029-4D04-8726-79AEC4313727}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{681D0897-4029-4D04-8726-79AEC4313727}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{681D0897-4029-4D04-8726-79AEC4313727}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{681D0897-4029-4D04-8726-79AEC4313727}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{34B6E2C2-CD72-44B2-A003-6FB63FF4AFE0} = {DE625E47-DB95-4710-A11A-F902B3425E78}
+		{9830F1F5-ED75-4345-9C39-3D3064233CAD} = {DE625E47-DB95-4710-A11A-F902B3425E78}
+		{681D0897-4029-4D04-8726-79AEC4313727} = {28D3B757-608D-4583-A0BE-E94D30DDF4D8}
 	EndGlobalSection
 EndGlobal

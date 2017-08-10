@@ -35,7 +35,7 @@ namespace PartyData
             }
         }
 
-        private PartyDbContext Create(string connectionString)
+        public PartyDbContext Create(string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
             {

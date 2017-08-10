@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PartyData;
+using PartyData.Repositories;
 
 namespace WebApplicationParty
 {
@@ -25,7 +26,9 @@ namespace WebApplicationParty
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PartyDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            var partyDbContext = (new PartyDbContextFactory()).Create(Configuration.GetConnectionString("DefaultConnection"));
+
+            services.AddSingleton<IPartyRespository>(new PartyRespository(partyDbContext));
             services.AddMvc();
         }
 
