@@ -2,6 +2,8 @@
 
 ![BuildStatus](https://travis-ci.org/stevenalexander/NetCorePartyEfExample.svg?branch=master)
 
+![data model](https://raw.githubusercontent.com/stevenalexander/NetCorePartyEfExample/master/Images/party-model.png "data model")
+
 Example solution using .NET Core EF with a split class library for migrations used by a Web application to interact with a Database.
 
 This is intended as an example of implementing and using the [universal person and organisation data model](http://tdan.com/a-universal-person-and-organization-data-model/5014) created by Martin Fowler. This model allows you to record links to parties regardless of whether they are persons or organisations (or other), a common requirement in business operations dealing with interactions from different types of actors.
