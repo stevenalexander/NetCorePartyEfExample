@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "scripts": {
+    "test-e2e": "gulp e2e"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-webdriver": "^2.0.3",
+    "mocha": "^3.5.0",
+    "selenium-standalone": "^6.6.0",
+    "wdio-mocha-framework": "^0.5.10",
+    "wdio-sauce-service": "^0.4.0",
+    "webdriverio": "^4.8.0"
+  }
+}
