@@ -8,6 +8,29 @@ Example solution using .NET Core EF with a split class library for migrations us
 
 This is intended as an example of implementing and using the [universal person and organisation data model](http://tdan.com/a-universal-person-and-organization-data-model/5014) created by Martin Fowler. This model allows you to record links to parties regardless of whether they are persons or organisations (or other), a common requirement in business operations dealing with interactions from different types of actors.
 
+This project demonstrates:
+
+- Implementing the Party/Organisation/Person data model using Entity Framework in .NET Core
+- Using Code First approach to generate migration scripts in a separate class library for controlled release of database changes
+- Ability to execute migration scripts with a configurable connection string outside of web code, allowing migration DB user with higher permissions than web DB user 
+- Complex queries against multiple Entities using Linq
+- Testing Entity Framework queries against a SQLite DB for unit tests (as close as possible) of respository objects
+- Repository pattern with injected DbContext, separating Web controller logic from DbContext for easy testing with mocks/subsitutes
+
+## Requires
+
+- .NET Core framework
+- Visual Studio or VS Code
+- SQL Server Database (or Azure SQL)
+
+## Run tests
+
+Navigate into the unit test projects directory and execute the following in powershell:
+
+```
+dotnet test
+```
+
 ## Setup Database
 
 Update the database connection string in `PartyData/appsettings.json`.
@@ -30,6 +53,17 @@ Powershell/VS Code requires csproj file contains:
   </ItemGroup>
 ```
 
+Adding a new migration in Visual Studio:
+```
+# will detect changes in source entities and generate based on condition of DB
+Add-Migration MyNewChange
+# will apply all outstanding migrations
+Update-Database
+# rollback to named migration
+Update-Database -TargetMigration "MyPreviousChange"
+```
+
+
 ## Notes
 
 - EF Core currently [doesn't support Table per Type](https://github.com/aspnet/EntityFramework/issues/2266), so avoid Entities that inherit from other Entities, as it will generate large flat tables. Instead model the Entities based on the table structure you intend and create repository/query objects that map/manage those Entities to Business objects that contain and manipulate data from multiple entities.
@@ -40,3 +74,4 @@ Powershell/VS Code requires csproj file contains:
 
 - http://www.c-sharpcorner.com/article/crud-operations-in-asp-net-core-using-entity-framework-core-code-first/
 - https://www.benday.com/2017/02/17/ef-core-migrations-without-hard-coding-a-connection-string-using-idbcontextfactory/
+- https://docs.microsoft.com/en-us/ef/core/modeling/relationships
