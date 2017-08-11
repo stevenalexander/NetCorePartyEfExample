@@ -32,6 +32,7 @@ Powershell/VS Code requires csproj file contains:
 
 - EF Core currently [doesn't support Table per Type](https://github.com/aspnet/EntityFramework/issues/2266), so avoid Entities that inherit from other Entities, as it will generate large flat tables. Instead model the Entities based on the table structure you intend and create repository/query objects that map/manage those Entities to Business objects that contain and manipulate data from multiple entities.
 - Travis CI supports [csharp net core builds](https://docs.travis-ci.com/user/languages/csharp/), but the dotnet framework version property does not directly match the framework name, i.e. .NETCoreApp 1.1 is `dotnet: 1.0.1`.
+- In memory DB does not like EF setting default values on model maps and will return wrong values. Avoid defaults in context like `.HasDefaultValue(true)` and set in constructors or respositories.
 
 ## Links
 

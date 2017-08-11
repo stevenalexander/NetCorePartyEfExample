@@ -7,6 +7,10 @@ namespace PartyData
     {
         public DbSet<Party> Parties { get; set; }
 
+        public DbSet<Person> Persons { get; set; }
+
+        public DbSet<Organisation> Organisations { get; set; }
+
         public DbSet<CustomService> CustomServices { get; set; }
 
         public DbSet<PartyCustomServiceRegistration> PartyCustomServiceRegistrations { get; set; }
@@ -47,7 +51,7 @@ namespace PartyData
             modelBuilder.Entity<PartyCustomServiceRegistration>().Property(x => x.PartyCustomServiceRegistrationId);
             modelBuilder.Entity<PartyCustomServiceRegistration>().Property(x => x.PartyId);
             modelBuilder.Entity<PartyCustomServiceRegistration>().Property(x => x.CustomServiceId);
-            modelBuilder.Entity<PartyCustomServiceRegistration>().Property(x => x.RegistrationStatus).HasDefaultValue(true);
+            modelBuilder.Entity<PartyCustomServiceRegistration>().Property(x => x.RegistrationStatus);
         }
     }
 }
