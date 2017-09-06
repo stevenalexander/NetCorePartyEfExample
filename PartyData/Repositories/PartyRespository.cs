@@ -16,17 +16,6 @@ namespace PartyData.Repositories
             _partyDbContext = partyDbContext;
         }
 
-        public async Task<List<Party>> GetPartiesWithRegistrations()
-        {
-            return await _partyDbContext.Parties
-                .Include(p => p.CustomServiceRegistrations)
-                .Include(p => p.Organisation)
-                .Include(p => p.Person)
-                .Skip(0)
-                .Take(50) // TODO paging
-                .ToListAsync();
-        }
-
         public async Task<List<CustomService>> GetCustomServices()
         {
             return await _partyDbContext.CustomServices.ToListAsync();

@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using PartyData.Entities;
+using PartyData.Data;
 
 namespace WebApplicationParty.Models
 {
-    public class HomeViewModel
+    public class HomeViewModel : PagedSortedViewModel<PartyWithRegistrationsResultItem>
     {
-        public List<Party> Parties { get; set; }
-
         public List<CustomService> Services { get; set; }
 
         public int PartyId { get; set; }

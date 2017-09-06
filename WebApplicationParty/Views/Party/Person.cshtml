@@ -6,7 +6,7 @@
 
 <h1>Person</h1>
 
-<form asp-controller="Person" asp-action="Index" method="post">
+<form asp-controller="Party" asp-action="UpdatePerson" method="post">
     @Html.Hidden("PartyId", Model != null ? Model.PartyId : 0)
     <div class="form-group">
         <label>First name:

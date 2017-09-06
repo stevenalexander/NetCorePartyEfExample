@@ -22,26 +22,6 @@ namespace PartyData.UnitTests.Respositories
         }
 
         [Test]
-        public async Task GetPartiesWithRegistrations_ReturnsAllPartiesWithRegistrations()
-        {
-            await AddOrganisation(1, "Org1");
-            await AddPerson(2, "Person2");
-            await AddCustomService(1, "Service1");
-            await AddCustomService(2, "Service2");
-            await AddPartyCustomServiceRegistration(1, 1, true);
-            await AddPartyCustomServiceRegistration(1, 2, false);
-
-            var result = await _partyRespository.GetPartiesWithRegistrations();
-
-            Assert.AreEqual(2, result.Count);
-            Assert.IsNotNull(result[0].Organisation);
-            Assert.AreEqual(1, result[0].ActiveRegistrations.Count);
-            Assert.AreEqual(1, result[0].ActiveRegistrations[0].CustomServiceId);
-            Assert.IsNotNull(result[1].Person);
-            Assert.AreEqual(0, result[1].ActiveRegistrations.Count);
-        }
-
-        [Test]
         public async Task GetCustomServices_ReturnsAll()
         {
             await AddCustomService(1, "Service1");

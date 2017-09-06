@@ -30,6 +30,7 @@ namespace WebApplicationParty
             var partyDbContext = (new PartyDbContextFactory()).Create(Configuration.GetConnectionString("DefaultConnection"));
 
             services.AddSingleton<IPartyRespository>(new PartyRespository(partyDbContext));
+            services.AddSingleton<IPagedSortedRepository<PartyWithRegistrationsResultItem>>(new PartyWithRegistrationsSortedRepository(partyDbContext));
             services.AddSingleton<IPagedSortedRepository<OrganisationResultItem>>(new OrganisationPagedSortedRepository(partyDbContext));
             services.AddSingleton<IPagedSortedRepository<PersonResultItem>>(new PersonPagedSortedRepository(partyDbContext));
             services.AddMvc();

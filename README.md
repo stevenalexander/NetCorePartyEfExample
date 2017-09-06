@@ -87,3 +87,4 @@ Update-Database -TargetMigration "MyPreviousChange"
 - http://www.c-sharpcorner.com/article/crud-operations-in-asp-net-core-using-entity-framework-core-code-first/
 - https://www.benday.com/2017/02/17/ef-core-migrations-without-hard-coding-a-connection-string-using-idbcontextfactory/
 - https://docs.microsoft.com/en-us/ef/core/modeling/relationships
+- https://docs.microsoft.com/en-us/dotnet/csharp/linq/perform-grouped-joins

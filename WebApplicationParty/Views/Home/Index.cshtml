@@ -1,4 +1,5 @@
 ﻿@model WebApplicationParty.Models.HomeViewModel
+@using WebApplicationParty.Helpers;
 
 @{
     ViewData["Title"] = "Home Page";
@@ -6,37 +7,34 @@
 
 <h1>Parties</h1>
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
-            <td>Name</td>
-            <td>Services</td>
-            <td>Add to service</td>
+            <th>@Html.PagedSortedTableHeaderLink("Name", "Name", Model)</th>
+            <th>Services</th>
+            <th>Add to service</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var party in Model.Parties)
+        @foreach (var party in Model.Data)
         {
             <tr>
+                <td>@Html.ActionLink(party.Name, "Index", "Party", new { id = party.PartyId })</td>
                 <td>
-                    @Html.ActionLink(@party.Name, "Index", (party.Person != null) ? "Person" : "Organisation", new { id = party.PartyId })
-                </td>
-                <td>
-                    @foreach (var service in party.ActiveRegistrations.Select(r => Model.Services.First(s => s.CustomServiceId == r.CustomServiceId)))
+                    @foreach (var service in party.ActiveRegistrationCustomServiceIds.Select(id => Model.Services.First(s => s.CustomServiceId == id)))
                     {
-                    <form asp-controller="Home" asp-action="RemoveFromCustomService" method="post">
-                        @Html.Hidden("PartyId", party.PartyId)
-                        @Html.Hidden("CustomServiceId", service.CustomServiceId)
-                        <span>@service.Name</span>
-                        <input type="submit" class="btn btn-link" value="remove" />
-                    </form>
+                        <form asp-controller="Home" asp-action="RemoveFromCustomService" method="post">
+                            @Html.Hidden("PartyId", party.PartyId)
+                            @Html.Hidden("CustomServiceId", service.CustomServiceId)
+                            <span>@service.Name</span>
+                            <input type="submit" class="btn btn-link" value="remove" />
+                        </form>
                     }
                 </td>
                 <td>
                     <form asp-controller="Home" asp-action="AddToCustomService" method="post">
                         @Html.Hidden("PartyId", party.PartyId)
-                        <select asp-for="CustomServiceId" asp-items="@(new SelectList(Model.Services,"CustomServiceId","Name"))">
-                        </select>
+                        <select asp-for="CustomServiceId" asp-items="@(new SelectList(Model.Services,"CustomServiceId","Name"))"></select>
                         <input type="submit" class="btn btn-link" value="add" />
                     </form>
                 </td>
@@ -44,6 +42,7 @@
         }
     </tbody>
 </table>
+@Html.PagedSortedTablePagingControl(Model)
 
 <div>
     @Html.ActionLink("Add person", "Index", "Person")

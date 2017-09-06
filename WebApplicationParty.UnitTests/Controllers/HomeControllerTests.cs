@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using WebApplicationParty.Models;
 using System.Threading.Tasks;
+using PartyData.Data;
 
 namespace WebApplicationParty.UnitTests.Controllers
 {
@@ -16,27 +17,36 @@ namespace WebApplicationParty.UnitTests.Controllers
     {
         private HomeController _controller;
         private IPartyRespository _partyRespository;
+        private IPagedSortedRepository<PartyWithRegistrationsResultItem> _pagedSortedRepository;
 
         [SetUp]
         public void SetUp()
         {
             _partyRespository = Substitute.For<IPartyRespository>();
-            _controller = new HomeController(_partyRespository);
+            _pagedSortedRepository = Substitute.For<IPagedSortedRepository<PartyWithRegistrationsResultItem>>();
+            _controller = new HomeController(_partyRespository, _pagedSortedRepository);
         }
 
         [Test]
         public async Task Index_GetsDataAndReturnsView()
         {
-            var parties = new List<Party>();
+            var pagedSortedResult = new PagedSortedResult<PartyWithRegistrationsResultItem>()
+            {
+                recordsFiltered = 50,
+                recordsTotal = 100,
+                data = new List<PartyWithRegistrationsResultItem>(),
+            };
             var services = new List<CustomService>();
 
-            _partyRespository.GetPartiesWithRegistrations().Returns(parties);
+            _pagedSortedRepository.GetPagedSortedResults(0, 10, "Name", true).Returns(pagedSortedResult);
             _partyRespository.GetCustomServices().Returns(services);
 
             var result = await _controller.Index();
 
             Assert.IsTrue(result is ViewResult);
-            Assert.AreSame(parties, ((result as ViewResult).Model as HomeViewModel).Parties);
+            Assert.AreEqual(pagedSortedResult.recordsTotal, ((result as ViewResult).Model as HomeViewModel).RecordsTotal);
+            Assert.AreEqual(pagedSortedResult.recordsFiltered, ((result as ViewResult).Model as HomeViewModel).RecordsFiltered);
+            Assert.AreSame(pagedSortedResult.data, ((result as ViewResult).Model as HomeViewModel).Data);
             Assert.AreSame(services, ((result as ViewResult).Model as HomeViewModel).Services);
         }
 

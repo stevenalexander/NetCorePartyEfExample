@@ -7,8 +7,6 @@ namespace PartyData.Repositories
 {
     public interface IPartyRespository
     {
-        Task<List<Party>> GetPartiesWithRegistrations();
-
         Task<List<CustomService>> GetCustomServices();
 
         Task<Party> GetParty(int partyId);

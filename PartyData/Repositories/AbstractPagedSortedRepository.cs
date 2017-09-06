@@ -14,11 +14,11 @@ namespace PartyData.Repositories
         {
             var innerJoinQuery = GetQuery();
 
-            var recordsTotal = await innerJoinQuery.CountAsync();
+            var recordsTotal = await GetRecordsTotalQuery(innerJoinQuery).CountAsync();
 
             var whereQuery = GetWhereQuery(innerJoinQuery);
 
-            var recordsFiltered = await whereQuery.CountAsync();
+            var recordsFiltered = await GetRecordsFilteredQuery(whereQuery).CountAsync();
 
             var sortedWhereQuery = GetSortedWhereQuery(whereQuery, orderColumn, orderAscending);
 
@@ -39,6 +39,30 @@ namespace PartyData.Repositories
         /// </summary>
         /// <returns>query</returns>
         protected abstract IQueryable<TResultItem> GetQuery();
+
+        /// <summary>
+        /// Get the records total query.
+        /// Default returns base query.
+        /// Needs to exclude group joins as this will break count call.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        protected virtual IQueryable<TResultItem> GetRecordsTotalQuery(IQueryable<TResultItem> query)
+        {
+            return query;
+        }
+
+        /// <summary>
+        /// Get the records filtered query.
+        /// Default returns base query.
+        /// Needs to exclude group joins as this will break count call.
+        /// </summary>
+        /// <param name="whereQuery"></param>
+        /// <returns></returns>
+        protected virtual IQueryable<TResultItem> GetRecordsFilteredQuery(IQueryable<TResultItem> whereQuery)
+        {
+            return whereQuery;
+        }
 
         /// <summary>
         /// Apply filters and conditions to the base query.
