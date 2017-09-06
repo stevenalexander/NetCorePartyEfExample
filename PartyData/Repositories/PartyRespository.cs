@@ -18,11 +18,12 @@ namespace PartyData.Repositories
 
         public async Task<List<Party>> GetPartiesWithRegistrations()
         {
-            // multiple includes returning all results bad for large volumes of data
             return await _partyDbContext.Parties
                 .Include(p => p.CustomServiceRegistrations)
                 .Include(p => p.Organisation)
                 .Include(p => p.Person)
+                .Skip(0)
+                .Take(50) // TODO paging
                 .ToListAsync();
         }
 

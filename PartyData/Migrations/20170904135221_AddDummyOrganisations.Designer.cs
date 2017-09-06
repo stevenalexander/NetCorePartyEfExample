@@ -8,9 +8,10 @@ using PartyData;
 namespace PartyData.Migrations
 {
     [DbContext(typeof(PartyDbContext))]
-    partial class PartyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170904135221_AddDummyOrganisations")]
+    partial class AddDummyOrganisations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

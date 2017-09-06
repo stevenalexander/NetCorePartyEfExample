@@ -1,0 +1,33 @@
+﻿@model WebApplicationParty.Models.PagedSortedViewModel<PartyData.Data.OrganisationResultItem>
+@using WebApplicationParty.Helpers;
+
+@{
+    ViewData["Title"] = "Organisation list";
+}
+
+<h1>Paged and sorted Organisations</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.PagedSortedTableHeaderLink("Name", "Name", Model)</th>
+            <th>@Html.PagedSortedTableHeaderLink("Trading name", "TradingName", Model)</th>
+            <th>@Html.PagedSortedTableHeaderLink("Date Created", "DateCreated", Model)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var organisation in Model.Data)
+        {
+            <tr>
+                <td>@organisation.Name</td>
+                <td>@organisation.TradingName</td>
+                <td>@organisation.DateCreated.ToString("yyyy-MM-dd")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedSortedTablePagingControl(Model)
+
+<div>
+    @Html.ActionLink("Home", "Index", "Home")
+</div>

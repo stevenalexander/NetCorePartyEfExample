@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PartyData;
+using PartyData.Data;
 using PartyData.Repositories;
 
 namespace WebApplicationParty
@@ -29,6 +30,8 @@ namespace WebApplicationParty
             var partyDbContext = (new PartyDbContextFactory()).Create(Configuration.GetConnectionString("DefaultConnection"));
 
             services.AddSingleton<IPartyRespository>(new PartyRespository(partyDbContext));
+            services.AddSingleton<IPagedSortedRepository<OrganisationResultItem>>(new OrganisationPagedSortedRepository(partyDbContext));
+            services.AddSingleton<IPagedSortedRepository<PersonResultItem>>(new PersonPagedSortedRepository(partyDbContext));
             services.AddMvc();
         }
 

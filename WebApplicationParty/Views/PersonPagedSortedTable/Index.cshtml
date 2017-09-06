@@ -1,0 +1,35 @@
+﻿@model WebApplicationParty.Models.PagedSortedViewModel<PartyData.Data.PersonResultItem>
+@using WebApplicationParty.Helpers;
+
+@{
+    ViewData["Title"] = "Person list";
+}
+
+<h1>Paged and sorted Persons</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.PagedSortedTableHeaderLink("Name", "Name", Model)</th>
+            <th>@Html.PagedSortedTableHeaderLink("Email address", "EmailAddress", Model)</th>
+            <th>@Html.PagedSortedTableHeaderLink("Date of birth", "DateOfBirth", Model)</th>
+            <th>@Html.PagedSortedTableHeaderLink("Date created", "DateCreated", Model)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var organisation in Model.Data)
+        {
+            <tr>
+                <td>@organisation.Name</td>
+                <td>@organisation.EmailAddress</td>
+                <td>@organisation.DateOfBirth.ToString("yyyy-MM-dd")</td>
+                <td>@organisation.DateCreated.ToString("yyyy-MM-dd")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedSortedTablePagingControl(Model)
+
+<div>
+    @Html.ActionLink("Home", "Index", "Home")
+</div>
