@@ -5,6 +5,8 @@ namespace WebApplicationParty.Models
 {
     public class PagedSortedViewModel<TData> : IPagedSortedViewModel
     {
+        public int Draw { get; set; }
+
         public int Start { get; set; }
 
         public int Length { get; set; }
