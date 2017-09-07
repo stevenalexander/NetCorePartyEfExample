@@ -5,11 +5,11 @@ using System;
 
 namespace PartyData.Repositories
 {
-    public class PartyWithRegistrationsSortedRepository : AbstractPagedSortedRepository<PartyWithRegistrationsResultItem>
+    public class PartyWithRegistrationsPagedSortedRepository : AbstractPagedSortedRepository<PartyWithRegistrationsResultItem>
     {
         private PartyDbContext _partyDbContext;
 
-        public PartyWithRegistrationsSortedRepository(PartyDbContext partyDbContext)
+        public PartyWithRegistrationsPagedSortedRepository(PartyDbContext partyDbContext)
         {
             _partyDbContext = partyDbContext;
         }
