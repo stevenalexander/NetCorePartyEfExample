@@ -13,7 +13,7 @@ namespace WebApplicationParty.Helpers
             string sortIcon = isSortColumn ? model.OrderAscending ? "fa-sort-asc" : "fa-sort-desc" : string.Empty;
             string href = $"?start={model.Start}&length={model.Length}&orderColumn={columnName}&orderAscending={newOrderAscending}";
 
-            return new HtmlString($"<a href=\"{href}\" class=\"{cssClasses}\">{text} <i class=\"fa fa-fw {sortIcon}\"></a>");
+            return new HtmlString($"<a href=\"{href}\" class=\"pagedsortedtableheader {cssClasses}\">{text} <i class=\"fa fa-fw {sortIcon}\"></a>");
         }
     }
 }
