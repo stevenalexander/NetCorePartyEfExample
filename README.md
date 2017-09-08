@@ -189,6 +189,7 @@ To implement this I used a number of classes with generics/abstract methods to a
                 data = data,
             };
         }
+        ...
     }
 ```
 
