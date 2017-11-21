@@ -25,7 +25,7 @@ namespace WebApplicationParty.Helpers
             sb.AppendLine("<ul class=\"pagedsortedtablepagingcontrol pagination\">");
             sb.AppendLine($"  <li {previousDisabled}><a href=\"{GetPageLink(previousPageStart, model)}\">&laquo;</a></li>");
             sb.AppendLine($"  <li class=\"active\"><a href=\"#\">{pageNumber}</a></li>");
-            sb.AppendLine($"  <li {nextPageStart}><a href=\"{GetPageLink(nextPageStart, model)}\">&raquo;</a></li>");
+            sb.AppendLine($"  <li {nextDisabled}><a href=\"{GetPageLink(nextPageStart, model)}\">&raquo;</a></li>");
             sb.AppendLine("</ul>");
 
             return new HtmlString(sb.ToString());
